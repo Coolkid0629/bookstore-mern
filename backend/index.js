@@ -1,24 +1,26 @@
 import express from 'express';
-import {
-    PORT,
-    mongoDBURL
-} from './config.js';
 import mongoose from 'mongoose';
 import {
     Book
 } from './models/bookModel.js';
 import booksRoute from './routes/booksRoute.js';
-import cors from 'cors';
+import cors from 'cors'
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 
+const PORT = process.env.PORT;
+const mongoDBURL = process.env.MONGODB_URL;
+
 // Middleware to handle CORS policy
-// app.use(cors());
-app.use(cors({
-    origin: 'http://localhost:5173',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type'],
-}))
+app.use(cors());
+// app.use(cors({
+//     origin: 'http://localhost:5173',
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//     allowedHeaders: ['Content-Type'],
+// }))
 
 // Middleware to parse JSON
 app.use(express.json());
